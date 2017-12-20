@@ -757,7 +757,7 @@ void Play::LeerXml()
 					nameInnerNode = InnerNode->name();
 					//std::cout << InnerNode->name();
 					
-						if (nameInnerNode == "Destructible") //el cout lo hace bien, se llama asi y no entra en el if, bucle infinito wtf
+						if (nameInnerNode == "Destructible") 
 						{
 							for (rapidxml::xml_node<> *InnerInnerNode = InnerNode->first_node("Wall"); InnerInnerNode; InnerInnerNode = InnerInnerNode->next_sibling()) //accedemos al primer nodo dentro del nodo destructible, el cual es wall
 							{
@@ -765,7 +765,7 @@ void Play::LeerXml()
 
 								for (rapidxml::xml_attribute<> *InnerAttr = InnerInnerNode->first_attribute("i"); InnerAttr; InnerAttr = InnerAttr->next_attribute())//accedemos al primer atributo de wall
 								{
-									std::cout << InnerAttr->value();
+									//std::cout << InnerAttr->value();
 									NameAtt = InnerAttr->name();
 
 									if (NameAtt == "i") //si NameAtt vale i, es la primera coordenada, nos guardamos en el primer int del pair este numero, para no perderlo en la siguiente iteraçao
