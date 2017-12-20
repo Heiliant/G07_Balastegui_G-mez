@@ -750,8 +750,9 @@ void Play::LeerXml()
 
 			if (atoi(pAttr->value()) == 1 && CurrentGameState == GAME_STATE::STAY) //si pongo en vez de STAY PLAY1 no entra en el if proque antes de que llegue a este ya ha cambiado el game state
 			{								
-				for (rapidxml::xml_node<> *InnerNode = Root->first_node("Destructible"); ;) //accedemos al tercer nodo dentro del xml, el cual es Destructible
+				for (rapidxml::xml_node<> *InnerNode = Pnode->first_node();InnerNode; InnerNode->next_sibling()) //accedemos al tercer nodo dentro del xml, el cual es Destructible
 				{					
+					std::cout << "hola" << std::endl;
 					for (rapidxml::xml_node<> *InnerInnerNode = InnerNode->first_node("Wall"); InnerInnerNode; InnerInnerNode = InnerInnerNode->next_sibling()) //accedemos al primer nodo dentro del nodo destructible, el cual es wall
 					{
 						for (rapidxml::xml_attribute<> *InnerAttr = InnerInnerNode->first_attribute("i"); InnerAttr; InnerAttr = InnerAttr->next_attribute())//accedemos al primer atributo de wall
@@ -769,7 +770,6 @@ void Play::LeerXml()
 							}
 						}
 					}	
-					break;
 				}
 				for (rapidxml::xml_node<> *InnerNode = Root->first_node("Fixed"); InnerNode;)
 				{
