@@ -19,6 +19,8 @@ Play::Play(int i)
 	for (int i = 0; i < 15; ++i) {
 		board[i] = new Casilla*[13];
 	}
+	LeerXml();
+
 
 	if (i == 1) {
 		for (int i = 0; i < 15; ++i) {
@@ -720,4 +722,145 @@ void Play::draw()
 
 
 	interfaz->draw();
+}
+
+void Play::LeerXml()
+{
+	rapidxml::xml_document<> XMLdoc;
+	std::ifstream archivo("../../dep/FicheroXML.xml");
+	std::stringstream buff;
+	buff << archivo.rdbuf();
+	archivo.close();
+	std::string ContenidoBuffer(buff.str());
+	XMLdoc.parse<0>(&ContenidoBuffer[0]);
+
+	rapidxml::xml_node<> *Root = XMLdoc.first_node();
+	rapidxml::xml_attribute<> *pAttr;
+	char* Comparador;
+	char* NameAtt;
+	std::pair <int, int> coor;
+
+
+	for (rapidxml::xml_node<> *Pnode = Root->first_node("Level"); Pnode; Pnode = Pnode->next_sibling()) //accedemos al nodo level
+	{
+		
+		for (pAttr = Pnode->first_attribute("id"); pAttr; pAttr = pAttr->next_attribute()) //accedemos al primer atributo de level que es id
+		{			
+			Comparador = pAttr->name();
+
+			if (atoi(pAttr->value()) == 1 && CurrentGameState == GAME_STATE::STAY) //si pongo en vez de STAY PLAY1 no entra en el if proque antes de que llegue a este ya ha cambiado el game state
+			{								
+				for (rapidxml::xml_node<> *InnerNode = Root->first_node("Destructible"); ;) //accedemos al tercer nodo dentro del xml, el cual es Destructible
+				{					
+					for (rapidxml::xml_node<> *InnerInnerNode = InnerNode->first_node("Wall"); InnerInnerNode; InnerInnerNode = InnerInnerNode->next_sibling()) //accedemos al primer nodo dentro del nodo destructible, el cual es wall
+					{
+						for (rapidxml::xml_attribute<> *InnerAttr = InnerInnerNode->first_attribute("i"); InnerAttr; InnerAttr = InnerAttr->next_attribute())//accedemos al primer atributo de wall
+						{
+							NameAtt = InnerAttr->name();
+
+							if (NameAtt == "i") //si NameAtt vale i, es la primera coordenada, nos guardamos en el primer int del pair este numero, para no perderlo en la siguiente iteraçao
+							{
+								coor.first = atoi(InnerAttr->value());
+							}
+							if (NameAtt == "j") //si e sj, estamos en la segunda coordenada, la guardamos en el segundo int del pair y le pasamos a board estos int
+							{
+								coor.second = atoi(InnerAttr->value());
+								board[coor.first][coor.second] = new Muro();
+							}
+						}
+					}	
+					break;
+				}
+				for (rapidxml::xml_node<> *InnerNode = Root->first_node("Fixed"); InnerNode;)
+				{
+
+				}
+			}
+			if (Comparador == "time")
+			{
+				interfaz->timer = atoi(pAttr->value());
+			}
+			if (Comparador == "lives")
+			{
+				users.first->vidas = users.second->vidas = atoi(pAttr->value());
+			}
+
+			if (atoi(pAttr->value()) == 2 && CurrentGameState == GAME_STATE::PLAY2)
+			{
+				for (rapidxml::xml_node<> *InnerNode = Root->first_node("Destructible"); InnerNode; InnerNode = InnerNode->next_sibling()) //accedemos al tercer nodo dentro del xml, el cual es Destructible
+				{
+					for (rapidxml::xml_node<> *InnerInnerNode = InnerNode->first_node("Wall"); InnerInnerNode; InnerInnerNode = InnerInnerNode->next_sibling()) //accedemos al primer nodo dentro del nodo destructible, el cual es wall
+					{
+						for (rapidxml::xml_attribute<> *InnerAttr = InnerInnerNode->first_attribute("i"); InnerAttr; InnerAttr = InnerAttr->next_attribute())//accedemos al primer atributo de wall
+						{
+							NameAtt = InnerAttr->name();
+
+							if (NameAtt == "i") //si NameAtt vale i, es la primera coordenada, nos guardamos en el primer int del pair este numero, para no perderlo en la siguiente iteraçao
+							{
+								coor.first = atoi(InnerAttr->value());
+							}
+							if (NameAtt == "j") //si e sj, estamos en la segunda coordenada, la guardamos en el segundo int del pair y le pasamos a board estos int
+							{
+								coor.second = atoi(InnerAttr->value());
+								board[coor.first][coor.second] = new Bloque();
+							}
+						}
+					}
+
+					for (rapidxml::xml_node<> *InnerNode = Root->first_node("Fixed"); InnerNode;)
+					{
+
+					}
+
+				}
+			}
+			if (Comparador == "time")
+			{
+				interfaz->timer = atoi(pAttr->value());
+			}
+			if (Comparador == "lives")
+			{
+				users.first->vidas = users.second->vidas = atoi(pAttr->value());
+			}
+		}
+	}
+
+
+	//for (rapidxml::xml_node<> *pNode = Root->first_node("Level"); pNode; pNode = pNode->next_sibling())
+	//{
+	//	Buff = pNode->first_attribute("lives");
+	//	//for (rapidxml::xml_attribute<> *pAttrb = pNode->first_attribute(); pAttrb; pAttrb = pAttrb->next_attribute())
+	//	//{
+	//	//	
+	//	//	//switch (pAttrb->)
+	//	//	//{
+	//	//	//case 'id':
+	//	//	//	if (pAttrb->value == '1')
+	//	//	//	{
+	//	//	//		//cargar el nivel 1
+	//	//	//	}
+	//	//	//	break;
+
+	//	//	//case 'time':
+	//	//	//	/*timer = atoi(pAttrb->value()));*/ 
+	//	//	//	break;
+
+	//	//	//case 'lives':
+	//	//	//	users.first->vidas = users.second->vidas = atoi(pAttrb->value());
+	//	//	//	break;
+	//	//	//}
+	//	//}
+
+	//	for (rapidxml::xml_node<> *myInnerNode = pNode->first_node(); myInnerNode; myInnerNode = myInnerNode->next_sibling())
+	//	{
+	//		if (myInnerNode->name() == "Destructible")
+	//		{
+	//			for (rapidxml::xml_attribute<> *pAt = pNode->first_attribute(); pAt; pAt = pAt->next_attribute())
+	//			{
+
+	//			}
+	//		}
+	//		
+	//	}
+	//}
 }

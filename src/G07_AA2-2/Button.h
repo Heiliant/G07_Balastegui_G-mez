@@ -2,7 +2,6 @@
 #include "Recursos.h"
 #include "Renderer.h"
 #include <iostream>
-#include <SDL_ttf.h>
 
 class Button
 {

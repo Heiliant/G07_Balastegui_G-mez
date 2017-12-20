@@ -12,7 +12,13 @@
 #include <set>
 #include "Button.h"
 #include "Renderer.h"
-#include "string"
+#include <string>
+#include <sstream>
+#include <rapidxml_print.hpp>
+#include <rapidxml.hpp>
+#include <rapidxml_iterators.hpp>
+#include <rapidxml_utils.hpp>
+#include <cstdlib>
 
 
 class Play : public Scene
@@ -33,6 +39,7 @@ private:
 	void eventHandler() override;
 	void update() override;
 	void draw() override;
+	void LeerXml();
 
 	float auxTime;
 	

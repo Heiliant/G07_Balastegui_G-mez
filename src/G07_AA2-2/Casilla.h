@@ -1,6 +1,5 @@
 #pragma once
 #include <deque>
-#include <SDL.h>
 #include "Recursos.h"
 #include "Renderer.h"
 
