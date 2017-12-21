@@ -31,6 +31,12 @@ struct Image {
 	int id;
 };
 
+struct Score {
+	std::string name;
+	int points;
+	Text face;
+};
+
 const int SCREEN_WIDTH = 720;
 const int SCREEN_HEIGHT = 704;
 
