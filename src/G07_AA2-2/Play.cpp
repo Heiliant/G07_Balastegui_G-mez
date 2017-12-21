@@ -15,11 +15,18 @@ Play::Play(int i)
 
 	interfaz = new HUD(users);
 
-	board = new Casilla**[15];
+	board = new Casilla**[15]; //creamos el tablero
 	for (int i = 0; i < 15; ++i) {
 		board[i] = new Casilla*[13];
 	}
-	LeerXml();
+
+	for (int i = 0; i < 15; i++) { //seteamos todas sus posiciones a nullptr
+		for (int j = 0; j < 13; ++j) {
+			board[i][j] = nullptr;
+		}
+	}
+
+	LeerXml(); //se lee el ficher xml y se carga el nivel que toca
 
 
 	if (i == 1) {
@@ -749,13 +756,13 @@ void Play::LeerXml()
 		{			
 			Comparador = pAttr->name();
 
-			if (atoi(pAttr->value()) == 1 && CurrentGameState == GAME_STATE::STAY) //si pongo en vez de STAY PLAY1 no entra en el if proque antes de que llegue a este ya ha cambiado el game state
+			if (atoi(pAttr->value()) == 1) //si pongo en vez de STAY PLAY1 no entra en el if proque antes de que llegue a este ya ha cambiado el game state
 			{				
-
-				for (rapidxml::xml_node<> *InnerNode = Pnode->first_node("Destructible");; InnerNode->next_sibling()) //accedemos al tercer nodo dentro del xml, el cual es Destructible
+//EL ERROR ESTABA EN LA LÍNA 762, EN EL FOR, DONDE VA EL InnerNode=InnerNode->next_sibling, habías puesto solo InnerNode->next_sibling()
+				for (rapidxml::xml_node<> *InnerNode = Pnode->first_node("Destructible"); InnerNode; InnerNode=InnerNode->next_sibling()) //accedemos al tercer nodo dentro del xml, el cual es Destructible
 				{					
 					nameInnerNode = InnerNode->name();
-					//std::cout << InnerNode->name();
+					std::cout << InnerNode->name();
 					
 						if (nameInnerNode == "Destructible") 
 						{
@@ -765,7 +772,7 @@ void Play::LeerXml()
 
 								for (rapidxml::xml_attribute<> *InnerAttr = InnerInnerNode->first_attribute("i"); InnerAttr; InnerAttr = InnerAttr->next_attribute())//accedemos al primer atributo de wall
 								{
-									//std::cout << InnerAttr->value();
+									//std::cout << InnerAttr->name() << std::endl;
 									NameAtt = InnerAttr->name();
 
 									if (NameAtt == "i") //si NameAtt vale i, es la primera coordenada, nos guardamos en el primer int del pair este numero, para no perderlo en la siguiente iteraçao
