@@ -2,7 +2,7 @@
 
 
 
-Ranking::Ranking()
+Ranking::Ranking(std::vector<std::pair<std::string, int>> newComers)
 {
 	BG.path = PATH_BG;
 	BG.placeholder.x = 0;
@@ -26,8 +26,8 @@ Ranking::Ranking()
 
 	Back->resetText(reset);
 
-	for (int i = 0; i < 10; ++i)
-	beastList.push_back({ "Alex", rand()%1000, {} });
+	for (std::vector<std::pair<std::string, int>>::iterator i=newComers.begin(); i!=newComers.end(); ++i)
+		beastList.push_back({ i->first, i->second, {} });
 
 	int j = 0;
 	for (std::deque<Score>::iterator i = beastList.begin(); i != beastList.end(); ++i) {

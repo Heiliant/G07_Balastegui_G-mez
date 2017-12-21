@@ -28,6 +28,10 @@ void Game::run()
 		currentScene->eventHandler();	
 		currentScene->update();
 		currentScene->draw();
+
+		if (currentScene->winnerN != "notaname" && currentScene->winnerS != -1) {
+			toAddList.push_back(std::make_pair(currentScene->winnerN, currentScene->winnerS));
+		}
 		Renderer::Instance()->Render();
 	}
 }
@@ -43,7 +47,7 @@ void Game::updateScene()
 		break;
 	case GAME_STATE::RANKING:
 		delete currentScene;
-		currentScene = new Ranking();
+		currentScene = new Ranking(toAddList);
 		currentScene->CurrentGameState = GAME_STATE::STAY;
 		break;
 	case GAME_STATE::PLAY1:

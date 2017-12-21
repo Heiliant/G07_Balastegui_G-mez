@@ -4,11 +4,12 @@
 #include <string>
 #include <algorithm>
 #include <deque>
+#include <vector>
 
 class Ranking : public Scene
 {
 public:
-	Ranking();
+	Ranking(std::vector<std::pair<std::string, int>> newComers);
 	~Ranking();
 
 

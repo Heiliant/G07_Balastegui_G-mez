@@ -4,6 +4,9 @@ Scene::Scene()
 {
 	active = true;
 	CurrentGameState = GAME_STATE::STAY;
+
+	winnerN = "notaname";
+	winnerS = -1;
 }
 
 

@@ -73,7 +73,7 @@ Play::Play(int i)
 
 	bgm = Mix_LoadMUS("../../res/au/game_theme.mp3");
 	Mix_PlayMusic(bgm, -1);
-	
+
 }
 
 
@@ -660,6 +660,7 @@ void Play::update()
 		if (auxTime == 256)
 			auxTime = interfaz->timer;
 		if (auxTime - interfaz->timer >= 1000) {
+			int winnerScore=0;
 			bool empate = false;
 			if (users.first->vidas <= 0 && users.second->vidas <= 0) {
 				//EMPATE
@@ -669,10 +670,12 @@ void Play::update()
 			else if (users.first->vidas <= 0) {
 				//GANA PJ2
 				std::cout << "Enhorabuena Jugador2. Has ganado!" << std::endl;
+				winnerScore = (users.second->score);
 			}
 			else if (users.second->vidas <= 0) {
 				//GANA PJ1
 				std::cout << "Enhorabuena Jugador1. Has ganado!" << std::endl;
+				winnerScore=(users.first->score);
 			}
 			else {
 				//LOS DOS ESTÁN VIVOS
@@ -684,10 +687,12 @@ void Play::update()
 				else if (users.first->score < users.second->score) {
 					//GANA PJ2
 					std::cout << "Enhorabuena Jugador2. Has ganado!" << std::endl;
+					winnerScore = (users.second->score);
 				}
 				else {
 					//GANA PJ1
 					std::cout << "Enhorabuena Jugador1. Has ganado!" << std::endl;
+					winnerScore = (users.second->score);
 				}
 			}
 
@@ -695,6 +700,9 @@ void Play::update()
 				std::cout << "Introduce tu nombre: " << std::endl;
 				std::string winnerName;
 				std::getline(std::cin, winnerName);
+
+				winnerN = winnerName;
+				winnerS = winnerScore;
 			}
 			CurrentGameState = GAME_STATE::MENU;
 		}
@@ -882,3 +890,4 @@ void Play::LeerXml()
 	//	}
 	//}
 }
+

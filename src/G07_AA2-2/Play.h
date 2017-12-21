@@ -44,5 +44,7 @@ private:
 	float auxTime;
 	
 	Mix_Music* bgm;
+
+
 };
 
