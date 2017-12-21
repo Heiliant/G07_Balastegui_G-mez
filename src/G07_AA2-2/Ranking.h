@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <deque>
 #include <vector>
+#include <algorithm>
 
 class Ranking : public Scene
 {
@@ -14,7 +15,6 @@ public:
 
 
 private:
-	std::map <std::string, int> hallOfFame;
 	void eventHandler() override;
 	void update() override;
 	void draw() override;

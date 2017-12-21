@@ -11,6 +11,8 @@ Game::Game()
 	
 
 	srand(time(NULL));
+
+	//LEER EL ARCHIVO BINARIO Y ALMACENAR SUS VALORES EN LA toAddList
 }
 
 
@@ -34,6 +36,8 @@ void Game::run()
 		}
 		Renderer::Instance()->Render();
 	}
+
+	//ESCRIBIR EL ARCHIVO BINARIO Y ALMACENAR LOS VALORES DE LA toAddList EN ÉL
 }
 
 void Game::updateScene()

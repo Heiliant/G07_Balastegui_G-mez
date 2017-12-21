@@ -25,12 +25,26 @@ Ranking::Ranking(std::vector<std::pair<std::string, int>> newComers)
 	reset.size=200;
 
 	Back->resetText(reset);
-
-	for (std::vector<std::pair<std::string, int>>::iterator i=newComers.begin(); i!=newComers.end(); ++i)
-		beastList.push_back({ i->first, i->second, {} });
-
 	int j = 0;
-	for (std::deque<Score>::iterator i = beastList.begin(); i != beastList.end(); ++i) {
+	for (std::vector<std::pair<std::string, int>>::iterator i=newComers.begin(); i!=newComers.end() && j<10; ++i, ++j)
+		beastList.push_back({ i->first, i->second, {} });//lee las puntuaciones de el argumento pasado por el game y los mete en la deque beastList
+
+	//POR SI QUIERES PROBAR COMO VA, ESTO INSERTA UNOS CUANTOS VALORES
+
+	/*beastList.push_back({ "kek", 123, {} });
+	beastList.push_back({ "lol", 321,{} });
+	beastList.push_back({ "lmao", 54,{} });
+	beastList.push_back({ "boi", 456,{} });
+	beastList.push_back({ "dat", 73,{} });
+	beastList.push_back({ "dejavu", 28,{} });
+	beastList.push_back({ "spice", 853,{} });*/
+
+
+	std::sort(beastList.begin(), beastList.end()); //lo ordena de menor a mayor
+	std::reverse(beastList.begin(), beastList.end()); //le da la vuelta
+
+	j = 0;
+	for (std::deque<Score>::iterator i = beastList.begin(); i != beastList.end(); ++i, ++j) {//da valor a los atributos de imágen de las puntuaciones
 		i->face.path = PATH_GAMEOVER;
 		i->face.placeHolder.h = 50;
 		i->face.placeHolder.w = 200;
@@ -40,7 +54,6 @@ Ranking::Ranking(std::vector<std::pair<std::string, int>> newComers)
 		i->face.color = { 0, 1, 0, 1 };
 		i->face.msg = std::string(i->name + " " + std::to_string(i->points));
 		i->face.id=Renderer::Instance()->loadText(i->face);
-		j++;
 	}
 }
 
@@ -84,7 +97,7 @@ void Ranking::draw()
 
 void Ranking::displayScores()
 {
-	for(std::deque<Score>::iterator i = beastList.begin(); i != beastList.end(); ++i) {
+	for(std::deque<Score>::reverse_iterator i = beastList.rbegin(); i != beastList.rend(); ++i) {
 		Renderer::Instance()->renderIMG(i->face.id, i->face.placeHolder);
 	}
 }
