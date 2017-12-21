@@ -22,7 +22,7 @@ Play::Play(int i)
 	LeerXml();
 
 
-	if (i == 1) {
+	/*if (i == 1) {
 		for (int i = 0; i < 15; ++i) {
 			for (int j = 0; j < 13; ++j) {
 				if (i == 0 || i == 14 || j == 0 || j == 12) {
@@ -61,7 +61,7 @@ Play::Play(int i)
 
 			}
 		}
-	}
+	}*/
 	auxTime = 256;
 
 	bgm = Mix_LoadMUS("../../res/au/game_theme.mp3");
@@ -752,15 +752,15 @@ void Play::LeerXml()
 			if (atoi(pAttr->value()) == 1 && CurrentGameState == GAME_STATE::STAY) //si pongo en vez de STAY PLAY1 no entra en el if proque antes de que llegue a este ya ha cambiado el game state
 			{				
 
-				for (rapidxml::xml_node<> *InnerNode = Pnode->first_node("Destructible");; InnerNode->next_sibling()) //accedemos al tercer nodo dentro del xml, el cual es Destructible
+      /*----*/ for (rapidxml::xml_node<> *InnerNode = Pnode->first_node("Destructible");InnerNode; InnerNode->next_sibling()) //accedemos al tercer nodo dentro del xml, el cual es Destructible
 				{					
 					nameInnerNode = InnerNode->name();
-					//std::cout << InnerNode->name();
+					std::cout << nameInnerNode;
 					
 						if (nameInnerNode == "Destructible") 
 						{
-							for (rapidxml::xml_node<> *InnerInnerNode = InnerNode->first_node("Wall"); InnerInnerNode; InnerInnerNode = InnerInnerNode->next_sibling()) //accedemos al primer nodo dentro del nodo destructible, el cual es wall
-							{
+						for (rapidxml::xml_node<> *InnerInnerNode = InnerNode->first_node("Wall"); InnerInnerNode; InnerInnerNode = InnerInnerNode->next_sibling()) //accedemos al primer nodo dentro del nodo destructible, el cual es wall
+					    {
 								//std::cout << InnerInnerNode->name();
 
 								for (rapidxml::xml_attribute<> *InnerAttr = InnerInnerNode->first_attribute("i"); InnerAttr; InnerAttr = InnerAttr->next_attribute())//accedemos al primer atributo de wall
@@ -778,11 +778,11 @@ void Play::LeerXml()
 										board[coor.first][coor.second] = new Muro();
 									}
 								}
-							}
+			/*----*/	}
 						}
 						if (nameInnerNode == "Fixed")
 						{
-
+							
 						}
 				}
 			}
