@@ -20,9 +20,6 @@ Player::Player(int num) //añadir switch que gestione si se crea un player 1 o un
 		photo.placeholder.x = SCREEN_WIDTH-48*2;
 		photo.placeholder.y = SCREEN_HEIGHT-48*2;
 
-		photo.placeholder.x = 48*3;
-		photo.placeholder.y = 48 + 80;
-
 		whoIam = TIPO_CASILLA::PLAYER2;
 	}
 
