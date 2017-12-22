@@ -23,6 +23,8 @@ protected:
 	std::deque <Button> buttonList;
 	bool active;
 	
-	
+public:
+	std::string winnerN;
+	int winnerS;
 };
 

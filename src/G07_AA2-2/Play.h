@@ -42,7 +42,10 @@ private:
 	void LeerXml();
 
 	float auxTime;
+	int KnowLevel;
 	
 	Mix_Music* bgm;
+
+
 };
 

@@ -31,6 +31,21 @@ struct Image {
 	int id;
 };
 
+class Score {
+public:
+	std::string name;
+	int points;
+	Text face;
+
+	bool operator <(const Score &other) const {
+		return this->points < other.points;
+	}
+
+	bool operator ==(const Score &other) const {
+		return this->points == other.points;
+	}
+};
+
 const int SCREEN_WIDTH = 720;
 const int SCREEN_HEIGHT = 704;
 
