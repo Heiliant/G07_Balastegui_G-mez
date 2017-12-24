@@ -74,7 +74,11 @@ void Game::updateScene()
 
 void Game::LeerBinario()
 {
+<<<<<<< HEAD
 		std::ifstream fentrada("../../res/Ranking.bin", std::ios_base::binary | std::ios_base::app);
+=======
+		std::ifstream fentrada("../../res/Ranking.txt", std::ios::in | std::ios::binary);
+>>>>>>> 68bdc8942d82395562be2093464cf287d1fd89c9
 
 		int capacity;
 
@@ -83,6 +87,7 @@ void Game::LeerBinario()
 
 		for (int i=0; i<capacity; i++)
 		{
+<<<<<<< HEAD
 			size_t stringSize = 0;
 			toAddList.push_back(std::make_pair("", 0));
 
@@ -95,24 +100,41 @@ void Game::LeerBinario()
 			toAddList.back().first = aux;
 			fentrada.read(reinterpret_cast<char *>(&toAddList.back().second), sizeof(int));
 		}		
+=======
+			std::cout << *buff << std::endl;
+		}
+>>>>>>> 68bdc8942d82395562be2093464cf287d1fd89c9
 
 		fentrada.close();
 }
 
 void Game::EscribirBinario()
 {
+<<<<<<< HEAD
 		std::ofstream fsalida("../../res/Ranking.bin", std::ios::out | std::ios::binary);
+=======
+		std::ofstream fsalida("../../res/Ranking.txt", std::ios::out | std::ios::binary);
+		char espasio = ' ';
+		char enter = '\n';
+>>>>>>> 68bdc8942d82395562be2093464cf287d1fd89c9
 		int capacity = toAddList.size();
 		std::cout << capacity;
 	
 		fsalida.write(reinterpret_cast<char *>(&capacity), sizeof(int));
 		for (std::vector <std::pair<std::string, int>>::iterator i = toAddList.begin(); i != toAddList.end(); i++)
 		{
+<<<<<<< HEAD
 			size_t localStringSize = i->first.size();
 			fsalida.write(reinterpret_cast<char *>(&localStringSize), sizeof(size_t));//escribir tamaño del string
 			fsalida.write((i->first.c_str()), i->first.size());//escribir contenido del string
 
 			fsalida.write(reinterpret_cast<char *>(&i->second), sizeof(i->second));//escribir score
+=======
+			fsalida.write(reinterpret_cast<char *>(&i->first), i->first.size());
+			fsalida.write(reinterpret_cast<char *>(&espasio), sizeof(espasio));
+			fsalida.write(reinterpret_cast<char *>(&i->second), sizeof(i->second));
+			fsalida.write(reinterpret_cast<char *>(&enter), sizeof(enter));
+>>>>>>> 68bdc8942d82395562be2093464cf287d1fd89c9
 		}
 
 		

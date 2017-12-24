@@ -731,14 +731,12 @@ void Play::LeerXml()
 
 
 	for (rapidxml::xml_node<> *Pnode = Root->first_node("Level"); Pnode; Pnode = Pnode->next_sibling()) //accedemos al nodo level
-	{
-		
+	{		
 		for (pAttr = Pnode->first_attribute("id"); pAttr; pAttr = pAttr->next_attribute()) //accedemos al primer atributo de level que es id
 		{
 			Comparador = pAttr->name();
-			
 
-			if (atoi(pAttr->value()) ==1 && KnowLevel == 1) //si pongo en vez de STAY PLAY1 no entra en el if proque antes de que llegue a este ya ha cambiado el game state
+			if (atoi(pAttr->value()) ==1 && KnowLevel == 1 && Comparador=="id") //si pongo en vez de STAY PLAY1 no entra en el if proque antes de que llegue a este ya ha cambiado el game state
 			{
 				std::cout << "hola";
 				for (rapidxml::xml_node<> *InnerNode = Pnode->first_node(); InnerNode; InnerNode = InnerNode->next_sibling()) //accedemos al tercer nodo dentro del xml, el cual es Destructible
@@ -765,9 +763,15 @@ void Play::LeerXml()
 								if (NameAtt == "j") //si e sj, estamos en la segunda coordenada, la guardamos en el segundo int del pair y le pasamos a board estos int
 								{
 									coor.second = atoi(InnerAttr->value());
+<<<<<<< HEAD
 									board[coor.first + 1][coor.second + 1] = new Muro();
 									board[coor.first + 1][coor.second + 1]->photo.placeholder.x = coor.first * 48 + 48;
 									board[coor.first + 1][coor.second + 1]->photo.placeholder.y = coor.second * 48 + 80 + 48;
+=======
+									board[coor.first-1][coor.second - 1] = new Muro();
+									board[coor.first-1][coor.second - 1]->photo.placeholder.x = coor.first * 48;
+									board[coor.first-1][coor.second - 1]->photo.placeholder.y = coor.second * 48 + 80;
+>>>>>>> 68bdc8942d82395562be2093464cf287d1fd89c9
 								}
 							}
 						}
@@ -790,15 +794,32 @@ void Play::LeerXml()
 								if (NameAtt == "j") //si e sj, estamos en la segunda coordenada, la guardamos en el segundo int del pair y le pasamos a board estos int
 								{
 									coor.second = atoi(InnerAttr->value());
+<<<<<<< HEAD
 									board[coor.first + 1][coor.second + 1] = new Bloque();
 									board[coor.first + 1][coor.second + 1]->photo.placeholder.x = coor.first * 48+48;
 									board[coor.first + 1][coor.second + 1]->photo.placeholder.y = coor.second * 48 + 80+48;
+=======
+									board[coor.first-1][coor.second-1] = new Bloque();
+									board[coor.first-1][coor.second-1]->photo.placeholder.x = coor.first * 48;
+									board[coor.first-1][coor.second-1]->photo.placeholder.y = coor.second * 48 + 80;
+>>>>>>> 68bdc8942d82395562be2093464cf287d1fd89c9
 								}
 							}
 						}
 					}
 				}
 			}
+			if (Comparador == "time")
+			{
+				interfaz->timer = atoi(pAttr->value());
+				interfaz->timer *= 1000;
+			}
+			if (Comparador == "lives")
+			{
+				users.first->vidas = users.second->vidas = atoi(pAttr->value());
+				return;
+			}
+
 			if (atoi(pAttr->value()) ==2 && KnowLevel == 2)
 			{
 				for (rapidxml::xml_node<> *InnerNode = Pnode->first_node(); InnerNode; InnerNode = InnerNode->next_sibling()) //accedemos al tercer nodo dentro del xml, el cual es Destructible

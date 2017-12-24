@@ -17,6 +17,7 @@ public:
 
 	std::string nameToAdd;
 	int scoreToAdd;
+	
 
 	void run();
 	void updateScene();
