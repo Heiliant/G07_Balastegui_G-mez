@@ -33,7 +33,7 @@ void Game::run()
 		currentScene->draw();
 
 		if (currentScene->winnerN != "notaname" && currentScene->winnerS != -1) {
-			toAddList.push_back(std::make_pair(currentScene->winnerN, currentScene->winnerS));
+			toAddList.emplace_back(std::make_pair(currentScene->winnerN, currentScene->winnerS));
 		}
 		Renderer::Instance()->Render();
 	}
@@ -74,19 +74,27 @@ void Game::updateScene()
 
 void Game::LeerBinario()
 {
-		std::ifstream fentrada("../../res/files/Ranking.bin", std::ios::in | std::ios::binary);
+		std::ifstream fentrada("../../res/Ranking.bin", std::ios_base::binary | std::ios_base::app);
 
-		char* buff = new char[200];
 		int capacity;
 
 		fentrada.read(reinterpret_cast<char *>(&capacity), sizeof(int));
 		std::cout << capacity;
-		fentrada.read(buff, 200);
 
-		for (int i = 0; i < 200; i++)
+		for (int i=0; i<capacity; i++)
 		{
-			//std::cout << *buff << std::endl;
-		}
+			size_t stringSize = 0;
+			toAddList.push_back(std::make_pair("", 0));
+
+			fentrada.read(reinterpret_cast<char *>(&stringSize), sizeof(size_t));//lee el tamaño del string (va bien)
+
+			char* aux = new char[stringSize + 1];
+
+			fentrada.read(aux, stringSize);
+			aux[stringSize] = '\0';
+			toAddList.back().first = aux;
+			fentrada.read(reinterpret_cast<char *>(&toAddList.back().second), sizeof(int));
+		}		
 
 		fentrada.close();
 }
@@ -94,19 +102,17 @@ void Game::LeerBinario()
 void Game::EscribirBinario()
 {
 		std::ofstream fsalida("../../res/Ranking.bin", std::ios::out | std::ios::binary);
-		char espasio = ' ';
-		char enter = '\n';
 		int capacity = toAddList.size();
 		std::cout << capacity;
 	
 		fsalida.write(reinterpret_cast<char *>(&capacity), sizeof(int));
-
 		for (std::vector <std::pair<std::string, int>>::iterator i = toAddList.begin(); i != toAddList.end(); i++)
 		{
-			/*fsalida.write(reinterpret_cast<char *>(&i->first), i->first.size());
-			fsalida.write(reinterpret_cast<char *>(&espasio), sizeof(espasio));
-			fsalida.write(reinterpret_cast<char *>(&i->second), sizeof(i->second));
-			fsalida.write(reinterpret_cast<char *>(&enter), sizeof(enter));*/
+			size_t localStringSize = i->first.size();
+			fsalida.write(reinterpret_cast<char *>(&localStringSize), sizeof(size_t));//escribir tamaño del string
+			fsalida.write((i->first.c_str()), i->first.size());//escribir contenido del string
+
+			fsalida.write(reinterpret_cast<char *>(&i->second), sizeof(i->second));//escribir score
 		}
 
 		

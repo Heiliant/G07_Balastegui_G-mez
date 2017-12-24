@@ -29,6 +29,7 @@ Play::Play(int i)
 	}
 
 	LeerXml(); //se lee el ficher xml y se carga el nivel que toca
+	users.first->vidas = 1;
 	
 	for (int i = 0; i < 15; ++i) {
 		for (int j = 0; j < 13; ++j) {
@@ -764,9 +765,9 @@ void Play::LeerXml()
 								if (NameAtt == "j") //si e sj, estamos en la segunda coordenada, la guardamos en el segundo int del pair y le pasamos a board estos int
 								{
 									coor.second = atoi(InnerAttr->value());
-									board[coor.first][coor.second] = new Muro();
-									board[coor.first][coor.second]->photo.placeholder.x = coor.first * 48;
-									board[coor.first][coor.second]->photo.placeholder.y = coor.second * 48 + 80;
+									board[coor.first + 1][coor.second + 1] = new Muro();
+									board[coor.first + 1][coor.second + 1]->photo.placeholder.x = coor.first * 48 + 48;
+									board[coor.first + 1][coor.second + 1]->photo.placeholder.y = coor.second * 48 + 80 + 48;
 								}
 							}
 						}
@@ -789,9 +790,9 @@ void Play::LeerXml()
 								if (NameAtt == "j") //si e sj, estamos en la segunda coordenada, la guardamos en el segundo int del pair y le pasamos a board estos int
 								{
 									coor.second = atoi(InnerAttr->value());
-									board[coor.first][coor.second] = new Bloque();
-									board[coor.first][coor.second]->photo.placeholder.x = coor.first * 48;
-									board[coor.first][coor.second]->photo.placeholder.y = coor.second * 48 + 80;
+									board[coor.first + 1][coor.second + 1] = new Bloque();
+									board[coor.first + 1][coor.second + 1]->photo.placeholder.x = coor.first * 48+48;
+									board[coor.first + 1][coor.second + 1]->photo.placeholder.y = coor.second * 48 + 80+48;
 								}
 							}
 						}
@@ -824,9 +825,9 @@ void Play::LeerXml()
 								if (NameAtt == "j") //si e sj, estamos en la segunda coordenada, la guardamos en el segundo int del pair y le pasamos a board estos int
 								{
 									coor.second = atoi(InnerAttr->value());
-									board[coor.first][coor.second] = new Muro();
-									board[coor.first][coor.second]->photo.placeholder.x = coor.first * 48;
-									board[coor.first][coor.second]->photo.placeholder.y = coor.second * 48 + 80;
+									board[coor.first + 1][coor.second + 1] = new Muro();
+									board[coor.first + 1][coor.second + 1]->photo.placeholder.x = coor.first * 48 + 48;
+									board[coor.first + 1][coor.second + 1]->photo.placeholder.y = coor.second * 48 + 80 + 48;
 								}
 							}
 						}
@@ -849,9 +850,9 @@ void Play::LeerXml()
 								if (NameAtt == "j") //si e sj, estamos en la segunda coordenada, la guardamos en el segundo int del pair y le pasamos a board estos int
 								{
 									coor.second = atoi(InnerAttr->value());
-									board[coor.first][coor.second] = new Bloque();
-									board[coor.first][coor.second]->photo.placeholder.x = coor.first * 48;
-									board[coor.first][coor.second]->photo.placeholder.y = coor.second * 48 + 80;
+									board[coor.first + 1][coor.second + 1] = new Bloque();
+									board[coor.first + 1][coor.second + 1]->photo.placeholder.x = coor.first * 48 + 48;
+									board[coor.first + 1][coor.second + 1]->photo.placeholder.y = coor.second * 48 + 80 + 48;
 								}
 							}
 						}
