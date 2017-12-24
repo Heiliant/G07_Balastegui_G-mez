@@ -857,15 +857,6 @@ void Play::LeerXml()
 						}
 					}
 				}
-				if (Comparador == "time")
-				{
-					interfaz->timer = atoi(pAttr->value());
-					interfaz->timer *= 1000;
-				}
-				if (Comparador == "lives")
-				{
-					users.first->vidas = users.second->vidas = atoi(pAttr->value());
-				}
 			}
 		}
 	}
