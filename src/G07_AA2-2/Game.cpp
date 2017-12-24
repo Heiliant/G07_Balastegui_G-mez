@@ -22,7 +22,7 @@ Game::~Game()
 
 void Game::run()
 {
-	EscribirBinario();
+
 	while (currentScene->isRunning())
 	{
 		updateScene();
@@ -74,16 +74,18 @@ void Game::updateScene()
 
 void Game::LeerBinario()
 {
-		std::ifstream fentrada;
-		fentrada.open("../../res/files/Ranking.bin", std::ios::in | std::ios::binary);
+		std::ifstream fentrada("../../res/files/Ranking.bin", std::ios::in | std::ios::binary);
 
-		char* buff = new char[1];
+		char* buff = new char[200];
+		int capacity;
 
+		fentrada.read(reinterpret_cast<char *>(&capacity), sizeof(int));
+		std::cout << capacity;
 		fentrada.read(buff, 200);
 
 		for (int i = 0; i < 200; i++)
 		{
-			std::cout << *buff << std::endl;
+			//std::cout << *buff << std::endl;
 		}
 
 		fentrada.close();
@@ -91,23 +93,23 @@ void Game::LeerBinario()
 
 void Game::EscribirBinario()
 {
-		std::ofstream fsalida;
-		fsalida.open("../../res/Ranking.bin", std::ios::app | std::ios::out | std::ios::binary);
+		std::ofstream fsalida("../../res/Ranking.bin", std::ios::out | std::ios::binary);
 		char espasio = ' ';
 		char enter = '\n';
+		int capacity = toAddList.size();
+		std::cout << capacity;
+	
+		fsalida.write(reinterpret_cast<char *>(&capacity), sizeof(int));
 
-		fsalida.write(reinterpret_cast<char *>(&hola), hola.size());
-		fsalida.write(reinterpret_cast<char *>(&espasio), sizeof(espasio));
-		fsalida.write(reinterpret_cast<char *>(&o), sizeof(o));
-		fsalida.write(reinterpret_cast<char *>(&enter), sizeof(enter));
-
-		/*for (std::vector <std::pair<std::string, int>>::iterator i = toAddList.begin(); i != toAddList.end(); i++)
+		for (std::vector <std::pair<std::string, int>>::iterator i = toAddList.begin(); i != toAddList.end(); i++)
 		{
-			fsalida.write(reinterpret_cast<char *>(&i->first), i->first.size());
+			/*fsalida.write(reinterpret_cast<char *>(&i->first), i->first.size());
 			fsalida.write(reinterpret_cast<char *>(&espasio), sizeof(espasio));
 			fsalida.write(reinterpret_cast<char *>(&i->second), sizeof(i->second));
-			fsalida.write(reinterpret_cast<char *>(&enter), sizeof(enter));
-		}*/
+			fsalida.write(reinterpret_cast<char *>(&enter), sizeof(enter));*/
+		}
+
+		
 		fsalida.close();
 }
 

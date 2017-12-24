@@ -14,8 +14,6 @@ public:
 
 	Scene* currentScene;
 	bool running;
-	std::string hola = "gaga";
-	int o = 2;
 
 	std::string nameToAdd;
 	int scoreToAdd;
