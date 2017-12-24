@@ -22,6 +22,7 @@ Game::~Game()
 
 void Game::run()
 {
+	EscribirBinario();
 	while (currentScene->isRunning())
 	{
 		updateScene();
@@ -36,6 +37,7 @@ void Game::run()
 		}
 		Renderer::Instance()->Render();
 	}
+
 	EscribirBinario();
 
 	//ESCRIBIR EL ARCHIVO BINARIO Y ALMACENAR LOS VALORES DE LA toAddList EN ÉL
@@ -83,22 +85,29 @@ void Game::LeerBinario()
 		{
 			std::cout << *buff << std::endl;
 		}
+
 		fentrada.close();
 }
 
 void Game::EscribirBinario()
 {
-		std::ofstream fsalida("../../res/Ranking.bin", std::ios::out | std::ios::binary);
+		std::ofstream fsalida;
+		fsalida.open("../../res/Ranking.bin", std::ios::app | std::ios::out | std::ios::binary);
 		char espasio = ' ';
 		char enter = '\n';
 
-		for (std::vector <std::pair<std::string, int>>::iterator i = toAddList.begin(); i != toAddList.end(); i++)
+		fsalida.write(reinterpret_cast<char *>(&hola), hola.size());
+		fsalida.write(reinterpret_cast<char *>(&espasio), sizeof(espasio));
+		fsalida.write(reinterpret_cast<char *>(&o), sizeof(o));
+		fsalida.write(reinterpret_cast<char *>(&enter), sizeof(enter));
+
+		/*for (std::vector <std::pair<std::string, int>>::iterator i = toAddList.begin(); i != toAddList.end(); i++)
 		{
 			fsalida.write(reinterpret_cast<char *>(&i->first), i->first.size());
 			fsalida.write(reinterpret_cast<char *>(&espasio), sizeof(espasio));
 			fsalida.write(reinterpret_cast<char *>(&i->second), sizeof(i->second));
 			fsalida.write(reinterpret_cast<char *>(&enter), sizeof(enter));
-		}
+		}*/
 		fsalida.close();
 }
 

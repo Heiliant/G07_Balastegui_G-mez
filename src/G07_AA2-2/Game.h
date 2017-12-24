@@ -3,6 +3,7 @@
 #include "Play.h"
 #include "Ranking.h"
 #include "Renderer.h"
+#include <fstream>
 #include <vector>
 
 class Game
@@ -13,6 +14,8 @@ public:
 
 	Scene* currentScene;
 	bool running;
+	std::string hola = "gaga";
+	int o = 2;
 
 	std::string nameToAdd;
 	int scoreToAdd;
