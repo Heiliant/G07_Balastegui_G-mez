@@ -50,13 +50,15 @@ void Player::eventHandler()
 			speed.second = -1;
 		else if (keyboardState[SDL_SCANCODE_S])
 			speed.second = 1;
-		else if (keyboardState[SDL_SCANCODE_D])
+		else
+			speed.second = 0;
+
+		if (keyboardState[SDL_SCANCODE_D])
 			speed.first = 1;
 		else if (keyboardState[SDL_SCANCODE_A])
 			speed.first = -1;
 		else {
 			speed.first = 0;
-			speed.second = 0;
 		}
 		if (keyboardState[SDL_SCANCODE_SPACE] && canBomb) {
 			myBomb = new Bomba(getCenter());
@@ -68,14 +70,15 @@ void Player::eventHandler()
 			speed.second = -1;
 		else if (keyboardState[SDL_SCANCODE_DOWN])
 			speed.second = 1;
-		else if (keyboardState[SDL_SCANCODE_LEFT])
+		else 
+			speed.second = 0;
+
+		if (keyboardState[SDL_SCANCODE_LEFT])
 			speed.first = -1;
 		else if (keyboardState[SDL_SCANCODE_RIGHT])
 			speed.first = 1;
-		else {
+		else 
 			speed.first = 0;
-			speed.second = 0;
-		}
 
 		if (keyboardState[SDL_SCANCODE_RCTRL] && canBomb) {
 			myBomb = new Bomba(getCenter());

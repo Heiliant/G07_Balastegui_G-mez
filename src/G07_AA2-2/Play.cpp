@@ -4,7 +4,7 @@
 
 Play::Play(int i)
 {
-	//KnowLevel = i;
+	KnowLevel = i;
 
 	bg.placeholder.x = 0;
 	bg.placeholder.y = 0;
@@ -30,6 +30,15 @@ Play::Play(int i)
 
 	LeerXml(); //se lee el ficher xml y se carga el nivel que toca
 	
+	for (int i = 0; i < 15; ++i) {
+		for (int j = 0; j < 13; ++j) {
+			if (i == 0 || i == 14 || j == 0 || j == 12) {
+					board[i][j] = new Bloque();
+					board[i][j]->photo.placeholder.x = i * 48;
+					board[i][j]->photo.placeholder.y = (j * 48)+80;
+			}
+		}
+	}
 
 	auxTime = 256;
 
