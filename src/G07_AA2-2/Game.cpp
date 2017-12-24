@@ -74,7 +74,7 @@ void Game::updateScene()
 
 void Game::LeerBinario()
 {
-		std::ifstream fentrada("../../res/files/Ranking.bin", std::ios::in | std::ios::binary);
+		std::ifstream fentrada("../../res/Ranking.txt", std::ios::in | std::ios::binary);
 
 		char* buff = new char[200];
 		int capacity;
@@ -85,7 +85,7 @@ void Game::LeerBinario()
 
 		for (int i = 0; i < 200; i++)
 		{
-			//std::cout << *buff << std::endl;
+			std::cout << *buff << std::endl;
 		}
 
 		fentrada.close();
@@ -93,7 +93,7 @@ void Game::LeerBinario()
 
 void Game::EscribirBinario()
 {
-		std::ofstream fsalida("../../res/Ranking.bin", std::ios::out | std::ios::binary);
+		std::ofstream fsalida("../../res/Ranking.txt", std::ios::out | std::ios::binary);
 		char espasio = ' ';
 		char enter = '\n';
 		int capacity = toAddList.size();
@@ -103,10 +103,10 @@ void Game::EscribirBinario()
 
 		for (std::vector <std::pair<std::string, int>>::iterator i = toAddList.begin(); i != toAddList.end(); i++)
 		{
-			/*fsalida.write(reinterpret_cast<char *>(&i->first), i->first.size());
+			fsalida.write(reinterpret_cast<char *>(&i->first), i->first.size());
 			fsalida.write(reinterpret_cast<char *>(&espasio), sizeof(espasio));
 			fsalida.write(reinterpret_cast<char *>(&i->second), sizeof(i->second));
-			fsalida.write(reinterpret_cast<char *>(&enter), sizeof(enter));*/
+			fsalida.write(reinterpret_cast<char *>(&enter), sizeof(enter));
 		}
 
 		
