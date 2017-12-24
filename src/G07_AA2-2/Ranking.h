@@ -6,6 +6,10 @@
 #include <deque>
 #include <vector>
 #include <algorithm>
+#include <sstream>
+#include <fstream>
+#include <list>
+#include <iostream>
 
 class Ranking : public Scene
 {

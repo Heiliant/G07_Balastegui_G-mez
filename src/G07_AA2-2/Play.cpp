@@ -4,7 +4,7 @@
 
 Play::Play(int i)
 {
-	KnowLevel = i;
+	//KnowLevel = i;
 
 	bg.placeholder.x = 0;
 	bg.placeholder.y = 0;
@@ -29,7 +29,7 @@ Play::Play(int i)
 	}
 
 	LeerXml(); //se lee el ficher xml y se carga el nivel que toca
-
+	
 
 	auxTime = 256;
 
@@ -852,7 +852,7 @@ void Play::LeerXml()
 
 			if (Comparador == "time")
 			{
-				interfaz->timer = atoi(pAttr->value());
+				interfaz->timer = atoi(pAttr->value())*1000;
 			}
 			if (Comparador == "lives")
 			{
@@ -861,4 +861,3 @@ void Play::LeerXml()
 		}
 	}
 }
-

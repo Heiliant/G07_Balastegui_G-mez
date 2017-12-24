@@ -20,6 +20,9 @@ public:
 	void run();
 	void updateScene();
 
+	void LeerBinario();
+	void EscribirBinario();
 	std::vector<std::pair<std::string, int>> toAddList;
+
 };
 

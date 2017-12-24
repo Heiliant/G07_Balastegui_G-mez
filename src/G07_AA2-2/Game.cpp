@@ -8,7 +8,7 @@ Game::Game()
 	TTF_Init();
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	currentScene = new Menu();
-	
+	LeerBinario();
 
 	srand(time(NULL));
 
@@ -36,6 +36,7 @@ void Game::run()
 		}
 		Renderer::Instance()->Render();
 	}
+	EscribirBinario();
 
 	//ESCRIBIR EL ARCHIVO BINARIO Y ALMACENAR LOS VALORES DE LA toAddList EN ÉL
 }
@@ -67,6 +68,38 @@ void Game::updateScene()
 	default:
 		break;
 	}
+}
+
+void Game::LeerBinario()
+{
+		std::ifstream fentrada;
+		fentrada.open("../../res/files/Ranking.bin", std::ios::in | std::ios::binary);
+
+		char* buff = new char[1];
+
+		fentrada.read(buff, 200);
+
+		for (int i = 0; i < 200; i++)
+		{
+			std::cout << *buff << std::endl;
+		}
+		fentrada.close();
+}
+
+void Game::EscribirBinario()
+{
+		std::ofstream fsalida("../../res/Ranking.bin", std::ios::out | std::ios::binary);
+		char espasio = ' ';
+		char enter = '\n';
+
+		for (std::vector <std::pair<std::string, int>>::iterator i = toAddList.begin(); i != toAddList.end(); i++)
+		{
+			fsalida.write(reinterpret_cast<char *>(&i->first), i->first.size());
+			fsalida.write(reinterpret_cast<char *>(&espasio), sizeof(espasio));
+			fsalida.write(reinterpret_cast<char *>(&i->second), sizeof(i->second));
+			fsalida.write(reinterpret_cast<char *>(&enter), sizeof(enter));
+		}
+		fsalida.close();
 }
 
 
